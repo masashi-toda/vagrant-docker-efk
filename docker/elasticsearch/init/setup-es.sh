@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #elasticsearch
-ES_URL="0.0.0.0:9200"
-ES_INGEST_NODE_DIR=/vagrant/docker/elasticsearch/init
-ES_TEMPLATE_DIR=/vagrant/docker/elasticsearch/init
+ES_URL="elasticsearch:9200"
+ES_INGEST_NODE_DIR=`dirname $0`
+ES_TEMPLATE_DIR=`dirname $0`
 
 awaitEsServer() {
     echo "Await elasticsearch-server..."
@@ -14,7 +14,7 @@ awaitEsServer() {
         STATUS=$(curl -s -XGET ${ES_URL}/_cluster/health | jq ".status" | sed "s/\"//g")
 
         case "$STATUS" in
-        "green")  break;;
+        "green" | "yellow")  break;;
         "*"   ) ;;
         esac
 

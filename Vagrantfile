@@ -48,8 +48,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     echo "cd /vagrant" >> /home/vagrant/.profile
   SHELL
 
-  config.vm.provision "shell", run: "always", path: "scripts/setup-elasticsearch.sh"
-
   if File.file?("custom-provision.sh")
     config.vm.provision "shell", path: "custom-provision.sh"
   end

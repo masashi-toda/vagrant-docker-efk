@@ -89,6 +89,17 @@ services:
     networks:
       - esnet
 
+  es-importer:
+    image: giantswarm/tiny-tools
+    entrypoint: /bin/sh setup-es.sh
+    working_dir: /opt/es-import-templates
+    volumes:
+      - ./elasticsearch/init:/opt/es-import-templates
+    networks:
+      - esnet
+    depends_on:
+      - elasticsearch
+
 volumes:
   portainer-data:
     driver: local
